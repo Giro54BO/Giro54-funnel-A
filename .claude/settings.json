@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__figma__view_node",
+      "WebFetch(domain:www.pexels.com)"
+    ]
+  }
+}
