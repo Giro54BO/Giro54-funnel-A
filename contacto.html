@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Redirigiendo... | Giro54</title>
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2103752910545809');
+    fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" src="https://www.facebook.com/tr?id=2103752910545809&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #141414;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .spinner-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .spinner-svg {
+            width: 86px;
+            height: 86px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner-text {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 400;
+            text-align: center;
+            font-variation-settings: 'opsz' 14;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- Facebook Pixel Contact Event -->
+    <script>fbq('track', 'Contact');</script>
+    <noscript>
+      <img height="1" width="1" src="https://www.facebook.com/tr?id=2103752910545809&ev=Contact&noscript=1"/>
+    </noscript>
+
+    <div class="spinner-wrap">
+        <svg class="spinner-svg" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30.5" cy="30.5" r="27.5" stroke="white" stroke-width="6"/>
+            <path d="M55.5 45.75C56.25 46.25 57.125 45.875 57.5 45.125C62.25 35.875 62 24.625 56.75 15.625C51.5 6.50001 42 0.625008 31.5 0.125008C30.625 7.68434e-06 30 0.750008 30 1.62501V4.62501C30 5.37501 30.625 6.00001 31.375 6.12501C39.75 6.62501 47.375 11.25 51.625 18.625C55.75 25.875 56 34.875 52.25 42.25C51.875 43 52.125 43.875 52.875 44.25L55.5 45.75Z" fill="#F9EC2D"/>
+        </svg>
+        <p class="spinner-text">Continuar conversación en WhatsApp...</p>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = 'https://wa.me/59177090408';
+        }, 1500);
+    </script>
+</body>
+</html>
