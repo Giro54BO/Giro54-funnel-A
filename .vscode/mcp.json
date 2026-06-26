@@ -1,0 +1,13 @@
+{
+	"servers": {
+		"figma-local": {
+			"type": "http",
+			"url": "http://127.0.0.1:3845/mcp"
+		},
+		"my-mcp-server-8b600d4c": {
+			"url": "http://127.0.0.1:3845/mcp",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}
