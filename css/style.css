@@ -483,8 +483,7 @@ body li::-webkit-selection {
 
 .lift-card,
 .step-card,
-.project-card,
-.logo-tile {
+.project-card {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
@@ -504,6 +503,31 @@ body li::-webkit-selection {
   border-radius: 12px;
   margin-bottom: 1.25rem;
   display: block;
+}
+
+.step-img-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+  display: block;
+}
+
+.step-img-wrapper .step-img {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+  border-radius: 0;
+  aspect-ratio: unset;
+  transform: scale(1);
+  transform-origin: center center;
+  transition: none;
+}
+
+.step-img-wrapper--zoom-out .step-img {
+  transform: scale(0.75);
+  object-position: center 40%;
 }
 
 .step-number {
@@ -545,24 +569,57 @@ body li::-webkit-selection {
   margin-bottom: 0;
 }
 
-.logo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
+/* Marquee carousel */
+@keyframes marquee-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.marquee-wrapper {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  /* Fade edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.marquee-track {
+  overflow: hidden;
+}
+
+.marquee-row {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: marquee-left 30s linear infinite;
+}
+
+.marquee-track--reverse .marquee-row {
+  animation: marquee-right 30s linear infinite;
+}
+
+.marquee-wrapper:hover .marquee-row {
+  animation-play-state: paused;
 }
 
 .logo-tile {
-  min-height: 92px;
-  padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .logo-tile img {
-  max-width: 100%;
-  max-height: 48px;
-  object-fit: contain;
+  height: 56px;
+  width: auto;
+  display: block;
 }
 
 .cta-panel {
@@ -758,6 +815,30 @@ body li::-webkit-selection {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23737373' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+/* ── Para quién section — header icons ── */
+.para-quien-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.para-quien-icon--yes {
+  background-color: rgba(37, 211, 102, 0.12);
+  color: #25d366;
+}
+
+.para-quien-icon--no {
+  background-color: rgba(226, 7, 6, 0.08);
+  color: #e20706;
+  font-size: 0.85rem;
 }
 
 /* ── "No es para ti" card ── */
