@@ -38,7 +38,8 @@ hiddenElements.forEach((el) => observer.observe(el));
   });
 
   menu.querySelectorAll('.currency-picker-item').forEach(function (item) {
-    item.addEventListener('click', function () {
+    item.addEventListener('click', function (e) {
+      e.stopPropagation();
       menu.querySelectorAll('.currency-picker-item').forEach(function (i) { i.classList.remove('active'); });
       item.classList.add('active');
       symbolEl.textContent = item.dataset.symbol;
@@ -54,7 +55,7 @@ hiddenElements.forEach((el) => observer.observe(el));
 // ── Live exchange rates ──
 (function () {
   var BASE_USD   = 500;
-  var CACHE_KEY  = 'giro54_rates_v2';
+  var CACHE_KEY  = 'giro54_rates_v3';
   var CACHE_TTL  = 6 * 60 * 60 * 1000; // 6 hours
 
   var fmt = new Intl.NumberFormat('es-BO', { maximumFractionDigits: 0 });
@@ -110,8 +111,9 @@ hiddenElements.forEach((el) => observer.observe(el));
         // The page is a compact indicators table; grab every decimal in the 5–20 range
         // that appears after a USD / dólar label on the same row/cell
         var patterns = [
-          /(?:d[oó]lar|USD)[^0-9]{0,60}([0-9]{1,2}[.,][0-9]{2})/i,
-          /([0-9]{1,2}[.,][0-9]{2})[^0-9]{0,60}(?:d[oó]lar|USD)/i
+          /D[Ooó]LAR[^0-9]{0,60}([0-9]{1,2}[.,][0-9]{1,2})/i,
+          /ESTADOS\s+UNIDOS[^0-9]{0,80}([0-9]{1,2}[.,][0-9]{1,2})/i,
+          /(?:d[oó]lar|USD)[^0-9]{0,60}([0-9]{1,2}[.,][0-9]{2})/i
         ];
         for (var i = 0; i < patterns.length; i++) {
           var m = html.match(patterns[i]);
