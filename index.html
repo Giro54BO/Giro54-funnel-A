@@ -29,6 +29,16 @@
       <img height="1" width="1" src="https://www.facebook.com/tr?id=2103752910545809&ev=PageView&noscript=1"/>
     </noscript>
     <!-- End Facebook Pixel Code -->
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KQ2SSYKTKN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KQ2SSYKTKN');
+</script>
+  <!-- End Google tag (gtag.js) -->
 </head>
 <body>
 <main id="page-top" class="m-1">
@@ -344,6 +354,7 @@
             </div>
 
             <p class="text-soft mb-3" style="font-size: 0.8rem;">Pago único solo si decides publicarla</p>
+            <p id="rate-note" class="text-soft mb-0" style="font-size: 0.7rem; display: none;">Precio calculado al tipo de cambio del día</p>
 
             <div class="currency-picker mb-4" id="currency-picker">
               <button class="currency-picker-btn" id="currency-picker-btn" type="button" aria-expanded="false">
@@ -351,18 +362,18 @@
                 <i class="bi bi-chevron-down"></i>
               </button>
               <div class="currency-picker-menu" id="currency-picker-menu" hidden>
-                <button class="currency-picker-item active" type="button" data-symbol="USD" data-amount="500" data-label="Pago en USD">🇺🇸 Dólar (USD)</button>
-                <button class="currency-picker-item" type="button" data-symbol="Bs." data-amount="3.450" data-label="Pago en BOB">🇧🇴 Boliviano (BOB)</button>
-                <button class="currency-picker-item" type="button" data-symbol="$" data-amount="8.850" data-label="Pago en MXN">🇲🇽 Peso mexicano (MXN)</button>
-                <button class="currency-picker-item" type="button" data-symbol="$" data-amount="2.700" data-label="Pago en BRL">🇧🇷 Real brasileño (BRL)</button>
-                <button class="currency-picker-item" type="button" data-symbol="$" data-amount="2.100.000" data-label="Pago en COP">🇨🇴 Peso colombiano (COP)</button>
-                <button class="currency-picker-item" type="button" data-symbol="S/" data-amount="1.875" data-label="Pago en PEN">🇵🇪 Sol peruano (PEN)</button>
-                <button class="currency-picker-item" type="button" data-symbol="$" data-amount="475.000" data-label="Pago en CLP">🇨🇱 Peso chileno (CLP)</button>
-                <button class="currency-picker-item" type="button" data-symbol="$" data-amount="550.000" data-label="Pago en ARS">🇦🇷 Peso argentino (ARS)</button>
-                <button class="currency-picker-item" type="button" data-symbol="$" data-amount="21.000" data-label="Pago en UYU">🇺🇾 Peso uruguayo (UYU)</button>
-                <button class="currency-picker-item" type="button" data-symbol="Gs." data-amount="3.750.000" data-label="Pago en PYG">🇵🇾 Guaraní (PYG)</button>
-                <button class="currency-picker-item" type="button" data-symbol="Q" data-amount="3.900" data-label="Pago en GTQ">🇬🇹 Quetzal (GTQ)</button>
-                <button class="currency-picker-item" type="button" data-symbol="C$" data-amount="18.350" data-label="Pago en NIO">🇳🇮 Córdoba (NIO)</button>
+                <button class="currency-picker-item active" type="button" data-currency="USD" data-symbol="USD" data-amount="500" data-label="Pago en USD">🇺🇸 Dólar (USD)</button>
+                <button class="currency-picker-item" type="button" data-currency="BOB" data-symbol="Bs." data-amount="3.450" data-label="Pago en BOB">🇧🇴 Boliviano (BOB)</button>
+                <button class="currency-picker-item" type="button" data-currency="MXN" data-symbol="$" data-amount="8.850" data-label="Pago en MXN">🇲🇽 Peso mexicano (MXN)</button>
+                <button class="currency-picker-item" type="button" data-currency="BRL" data-symbol="$" data-amount="2.700" data-label="Pago en BRL">🇧🇷 Real brasileño (BRL)</button>
+                <button class="currency-picker-item" type="button" data-currency="COP" data-symbol="$" data-amount="2.100.000" data-label="Pago en COP">🇨🇴 Peso colombiano (COP)</button>
+                <button class="currency-picker-item" type="button" data-currency="PEN" data-symbol="S/" data-amount="1.875" data-label="Pago en PEN">🇵🇪 Sol peruano (PEN)</button>
+                <button class="currency-picker-item" type="button" data-currency="CLP" data-symbol="$" data-amount="475.000" data-label="Pago en CLP">🇨🇱 Peso chileno (CLP)</button>
+                <button class="currency-picker-item" type="button" data-currency="ARS" data-symbol="$" data-amount="550.000" data-label="Pago en ARS">🇦🇷 Peso argentino (ARS)</button>
+                <button class="currency-picker-item" type="button" data-currency="UYU" data-symbol="$" data-amount="21.000" data-label="Pago en UYU">🇺🇾 Peso uruguayo (UYU)</button>
+                <button class="currency-picker-item" type="button" data-currency="PYG" data-symbol="Gs." data-amount="3.750.000" data-label="Pago en PYG">🇵🇾 Guaraní (PYG)</button>
+                <button class="currency-picker-item" type="button" data-currency="GTQ" data-symbol="Q" data-amount="3.900" data-label="Pago en GTQ">🇬🇹 Quetzal (GTQ)</button>
+                <button class="currency-picker-item" type="button" data-currency="NIO" data-symbol="C$" data-amount="18.350" data-label="Pago en NIO">🇳🇮 Córdoba (NIO)</button>
               </div>
             </div>
 
@@ -554,7 +565,7 @@
           <a class="d-inline-flex mb-3" href="#page-top">
             <img src="images/Giro54-logo-White.svg" alt="Giro54 Logo" height="40">
           </a>
-          <p class="text-soft mb-2">Diseño web con estrategia y resultados medibles.</p>
+          <p class="text-soft mb-2">Argentina, Paraguay, Bolivia, resto del mundo.</p>
           <p class="text-soft mb-0">&#169; 2026 Giro54 Latam. Todos los derechos reservados.</p>
         </div>
         <div class="col-lg-4">
@@ -573,10 +584,6 @@
             <li><a class="text-soft text-decoration-none" href="https://www.instagram.com/giro54bolivia/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i>&nbsp;Instagram</a></li>
             <li><a class="text-soft text-decoration-none" href="https://www.tiktok.com/@giro54" target="_blank" rel="noopener noreferrer"><i class="bi bi-tiktok"></i>&nbsp;TikTok</a></li>
             <li><a class="text-soft text-decoration-none" href="https://www.youtube.com/@giro54" target="_blank" rel="noopener noreferrer"><i class="bi bi-youtube"></i>&nbsp;YouTube</a></li>
-          </ul>
-          <ul class="list-unstyled d-flex gap-3 mb-0">
-            <li><a class="text-soft text-decoration-none" href="#" style="font-size: 0.8rem;">Política de privacidad</a></li>
-            <li><a class="text-soft text-decoration-none" href="#" style="font-size: 0.8rem;">Términos y condiciones</a></li>
           </ul>
         </div>
       </div>

@@ -51,6 +51,102 @@ hiddenElements.forEach((el) => observer.observe(el));
   document.addEventListener('click', function () { closeMenu(); });
 })();
 
+// ── Live exchange rates ──
+(function () {
+  var BASE_USD   = 500;
+  var CACHE_KEY  = 'giro54_rates_v2';
+  var CACHE_TTL  = 6 * 60 * 60 * 1000; // 6 hours
+
+  var fmt = new Intl.NumberFormat('es-BO', { maximumFractionDigits: 0 });
+
+  function roundAmount(amount, rate) {
+    // Round to a "clean" figure based on magnitude
+    if (amount >= 1000000) return Math.round(amount / 10000) * 10000;
+    if (amount >= 100000)  return Math.round(amount / 1000)  * 1000;
+    if (amount >= 10000)   return Math.round(amount / 100)   * 100;
+    if (amount >= 1000)    return Math.round(amount / 25)    * 25;
+    return Math.round(amount / 5) * 5;
+  }
+
+  function applyRates(rates) {
+    var menu     = document.getElementById('currency-picker-menu');
+    var amountEl = document.getElementById('price-amount');
+    var rateNote = document.getElementById('rate-note');
+    if (!menu) return;
+
+    menu.querySelectorAll('.currency-picker-item').forEach(function (btn) {
+      var code = btn.dataset.currency;
+      if (!code || code === 'USD' || !rates[code]) return;
+      var converted = BASE_USD * rates[code];
+      var rounded   = roundAmount(converted, rates[code]);
+      var formatted = fmt.format(rounded);
+      btn.dataset.amount = formatted;
+      if (btn.classList.contains('active') && amountEl) {
+        amountEl.textContent = formatted;
+      }
+    });
+
+    if (rateNote) rateNote.style.display = '';
+  }
+
+  function tryCache() {
+    try {
+      var cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+      if (cached && (Date.now() - cached.ts) < CACHE_TTL) return cached.rates;
+    } catch (e) {}
+    return null;
+  }
+
+  function saveCache(rates) {
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), rates: rates })); } catch (e) {}
+  }
+
+  function fetchBOBFromBCB(fallback) {
+    var bcbUrl   = 'https://www.bcb.gob.bo/librerias/indicadores/otras/ultimo.php';
+    var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(bcbUrl);
+    return fetch(proxyUrl)
+      .then(function (r) { return r.text(); })
+      .then(function (html) {
+        // The page is a compact indicators table; grab every decimal in the 5–20 range
+        // that appears after a USD / dólar label on the same row/cell
+        var patterns = [
+          /(?:d[oó]lar|USD)[^0-9]{0,60}([0-9]{1,2}[.,][0-9]{2})/i,
+          /([0-9]{1,2}[.,][0-9]{2})[^0-9]{0,60}(?:d[oó]lar|USD)/i
+        ];
+        for (var i = 0; i < patterns.length; i++) {
+          var m = html.match(patterns[i]);
+          if (m) {
+            var rate = parseFloat(m[1].replace(',', '.'));
+            if (rate > 5 && rate < 20) return rate;
+          }
+        }
+        return fallback;
+      })
+      .catch(function () { return fallback; });
+  }
+
+  function init() {
+    var cached = tryCache();
+    if (cached) { applyRates(cached); return; }
+
+    fetch('https://open.er-api.com/v6/latest/USD')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data || data.result !== 'success') return;
+        var rates = data.rates;
+        // Override BOB with the official BCB rate
+        return fetchBOBFromBCB(rates['BOB']).then(function (bobRate) {
+          rates['BOB'] = bobRate;
+          saveCache(rates);
+          applyRates(rates);
+        });
+      })
+      .catch(function () {});
+  }
+
+  init();
+})();
+
 // ── Before/After Comparison Slider (W3Schools pattern) ──
 (function () {
   var containers = document.querySelectorAll('.img-comp-container');
