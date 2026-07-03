@@ -55,8 +55,7 @@ hiddenElements.forEach((el) => observer.observe(el));
 // ── Live exchange rates ──
 (function () {
   var BASE_USD   = 500;
-  var CACHE_KEY  = 'giro54_rates_v3';
-  var CACHE_TTL  = 6 * 60 * 60 * 1000; // 6 hours
+  var CACHE_KEY  = 'giro54_rates_v4';
 
   var fmt = new Intl.NumberFormat('es-BO', { maximumFractionDigits: 0 });
 
@@ -93,7 +92,13 @@ hiddenElements.forEach((el) => observer.observe(el));
   function tryCache() {
     try {
       var cached = JSON.parse(localStorage.getItem(CACHE_KEY));
-      if (cached && (Date.now() - cached.ts) < CACHE_TTL) return cached.rates;
+      if (!cached) return null;
+      var now = Date.now();
+      // Most recent 00:01 UTC (= 20:01 Bolivia time, when BCB posts the daily rate)
+      var d = new Date(now);
+      var lastReset = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 0, 1, 0);
+      if (now < lastReset) lastReset -= 24 * 60 * 60 * 1000;
+      return cached.ts >= lastReset ? cached.rates : null;
     } catch (e) {}
     return null;
   }
